@@ -48,5 +48,20 @@ class Solution(object):
 
         return rtype
 
+    def firstMissingPositive(self, nums):
+        m=len(nums)
+        t={}
+        for ni in nums:
+            if 0< ni <= m:
+                t[ni]=1
+        
+        lt=len(t)
+        for ti in range(1, lt+1):
+            if not t.has_key(ti):
+                return ti
+        
+        return lt+1
+        
+
 s=Solution()
 print s.findSubstring("barfoothefoobarman",["bar",'foo'])

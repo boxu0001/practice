@@ -62,10 +62,7 @@ class Solution(object):
         
         return lt+1
 
-    def trap(self, height):
-        rtype=0
 
-        return rtype
 
 s=Solution()
 print s.findSubstring("barfoothefoobarman",["bar",'foo'])

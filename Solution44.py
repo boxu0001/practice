@@ -63,9 +63,8 @@ class Solution:
                     f[k] = 0
                     
 
-        print(f)
         return len(f) > 0 and f[-1]==len(words)-1 #containing last words
                 
-
+                
 s = Solution()
 print(s.isMatch("aaabaaabaabababbabababaababbabbbbaaaaababbaabbbaab","*babbbb*aab**b*bb*aa*"))

@@ -35,42 +35,49 @@ class Solution:
         """
         l1 = len(word1)
         l2 = len(word2)
-        if l1 == 0:
+        if l1 == 0 and l2 == 0:
+            return 0
+        elif l1 == 0:
             return l2
         elif l2 == 0:
             return l1
+
         f = [[0 for j in range(l2)] for i in range(l1)] 
         for i in range(l1):
             for j in range(l2):
                 if word1[i] == word2[j]:
-                    f[i][j] = j if i==0 else i if j==0 else f[i-1][j-1]
+                    f[i][j] = f[i-1][j-1] + 1 if i >= 1 and j >= 1 else 1
                 else:
-                    p = min(j if i == 0 else f[i-1][j], i if j == 0 else f[i][j-1])
-                    if i > 0 and j > 0 and p > f[i-1][j-1]:
-                        p = f[i-1][j-1]
-                    f[i][j] = p+1
-        return f[-1][-1]
+                    f[i][j] = max(0 if i-1 < 0 else f[i-1][j], 0 if j-1 < 0 else f[i][j-1])
+        
+        countDown = 0
+        countLeft = 0
+        count = 0
+        i = l1-1
+        j = l2-1
+        while i>0 or j>0:
+            if word1[i] == word2[j]:
+                i= 0 if i == 0 else i-1
+                j= 0 if j == 0 else j-1
+                count+=max(countDown, countLeft)
+                countDown = 0
+                countLeft = 0
+            elif i > 0 and f[i][j] == f[i-1][j]:
+                i -= 1
+                countLeft+=1
+            else:
+                j -= 1
+                countDown+=1
 
-    def minDistance2(self, A, B):
-        l1 = len(A)+1
-        l2 = len(B)+1
-        f = [[None for j in range(l2)] for i in range(l1)] 
-        for i in range(l2):
-            f[0][i] = i
-        for j in range(l1):
-            f[j][0] = j            
-        for i in range(1, l1):
-            for j in range(1, l2):
-                f[i][j] = f[i-1][j-1] if A[i-1] == B[j-1] else (min(f[i-1][j], f[i][j-1], f[i-1][j-1]) + 1)
-        return f[-1][-1]
+        count+= max(countDown, countLeft) + 1 - f[0][0]
+        return count
 
 s = Solution()         
-print(s.minDistance2("", ""))
-print(s.minDistance2("", "ab"))
-print(s.minDistance2("ab", "ba"))
-print(s.minDistance2("intention", "execution"))
-print(s.minDistance2("horse", "ros"))
-print(s.minDistance2("mart", "karma"))
+print(s.minDistance("ab", "ba"))
+print(s.minDistance("intention", "execution"))
+print(s.minDistance("horse", "ros"))
+print(s.minDistance("mart", "karma"))
+
 
 
 

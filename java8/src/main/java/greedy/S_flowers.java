@@ -15,11 +15,11 @@ public class S_flowers {
 
         int r = 0;
         if(m > 0) {
-            r += (t+1) * IntStream.range(0,m).map(i->c[i]).sum();
+            r += (t+1) * Arrays.stream(c,0,m).sum();
         }
 
         for(int i = 0; i< t; i++) {
-            r += (t-i) * IntStream.range(m+i*k, m+i*k+k).map(s->c[s]).sum();
+            r += (t-i) * Arrays.stream(c,m+i*k, m+i*k+k).sum();
         }
 
         return r;

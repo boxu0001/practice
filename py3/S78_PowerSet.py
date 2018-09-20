@@ -19,7 +19,7 @@ Output:
 ]
 '''
 
-import cProfile
+import cProfile, pstats,io
 
 class Solution:
     #this is 2^n solution
@@ -61,4 +61,5 @@ class Solution:
 s=Solution()
 cProfile.run("s.subsetsDFS(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', '0','1','2'])")
 cProfile.run("s.subsets(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', '0','1','2'])")
+
 

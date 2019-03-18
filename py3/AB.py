@@ -34,7 +34,7 @@
 # 12
 # Returns: "BAABBABAAB"
 # Please note that this is an example of a solution; other valid solutions will also be accepted.
-import math
+# import math
 class AB:
     def createString(self, N, K):
         bstack = []

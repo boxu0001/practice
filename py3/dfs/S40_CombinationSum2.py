@@ -35,10 +35,10 @@ class Solution:
             if rem == 0: result+=[[candidates[i] for i in stack]]
             if rem > 0:
                 ne+=1
-            if (ne == ls and len(stack) > 0) or rem <= 0:
+            if (ne == ls and stack) or rem <= 0:
                 rem+=candidates[stack.pop()]
                 ne=ls
-                while len(stack) > 0 and ne==ls:
+                while stack and ne==ls:
                     ti=stack.pop()
                     rem+=candidates[ti]
                     ne=ti+1

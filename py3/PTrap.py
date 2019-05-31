@@ -13,7 +13,7 @@ class PTrap(object):
                     if height[stack[-1]] > curH:
                         rtype+=(curH-btmH)*(hi-stack[-1]-1)
                         stack+=[hi]
-                        break;
+                        break
                     else:
                         rtype+=(height[stack[-1]]-btmH)*(hi-stack[-1]-1)
                         btmH=height[stack.pop()]
@@ -21,6 +21,19 @@ class PTrap(object):
                 stack+=[hi]
         return rtype
 
-
+    def trapNew(self, h):
+        rst = 0
+        i=0
+        j=len(h)-1
+        while i < j:
+            testRes = (h[i] if h[i] < h[j] else h[j])*(j-i-1)
+            rst = testRes if testRes > rst else rst
+            if h[i] < h[j]:
+                i+=1
+            else:
+                j-=1
+        return rst
+            
 pt = PTrap()
-print pt.trap([0,1,0,2,1,0,1,3,2,1,2,1])
+# print(pt.trap([0,1,0,2,1,0,1,3,2,1,2,1]))
+print(pt.trapNew([0,1,0,2,1,0,1,3,2,1,2,1]))

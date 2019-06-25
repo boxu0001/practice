@@ -38,13 +38,17 @@
 class AB:
     def createString(self, N, K):
         bstack = []
-        if N*N < 4*K:
+        if N*N < 4*K:       #最大数 N/2*N/2 >= K (A的个数 乘 B的个数)
             return ""
-            
+        #用来计算可以生成的最大与最小个数
+        #            ________    
+        # (-b (+-) ./b**2-4ac )/2
+        #  a=1, b=N, c=K
+        #
         # minB = math.ceil((N - math.sqrt(N*N-4*K))/2)
         # maxB = math.floor((N + math.sqrt(N*N-4*K))/2)
-        b = N//2    #number of B
-        a = K//b    #number of A without first A
+        b = N//2    #number of B 取最大可能的个数
+        a = K//b    #number of A without first A    K=A的个数 X B的个数 + 
         c = K%b     #first A's postion, AB...B, (c X B), or no A if 0
 
         baseStr = 'A'*a + ('B'*b if c==0 else 'B'*(b-c) + 'A' + 'B'*c)

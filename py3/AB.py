@@ -48,8 +48,9 @@ class AB:
         # minB = math.ceil((N - math.sqrt(N*N-4*K))/2)
         # maxB = math.floor((N + math.sqrt(N*N-4*K))/2)
         b = N//2    #number of B 取最大可能的个数
-        a = K//b    #number of A without first A    K=A的个数 X B的个数 + 
-        c = K%b     #first A's postion, AB...B, (c X B), or no A if 0
+        a = K//b    #number of A without first A    K = A的个数 X B的个数 + 余数
+        c = K%b     #first A's postion, AB...B, (c X B), or no A if 0   用来计算余数
+                    #如 K=32 N=12, b=5, a=5, 那么 K = 5 X 6 + 2, 可形成 AAAAABBBBABB
 
         baseStr = 'A'*a + ('B'*b if c==0 else 'B'*(b-c) + 'A' + 'B'*c)
         result = baseStr 

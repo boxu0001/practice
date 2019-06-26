@@ -50,7 +50,7 @@ class Solution:
                 continue
             for ei in [i, i+1]:     #odd, even
                 si=i
-                while lns > ei >= si >= 0 and s[si] == s[ei]:
+                while lns > ei >= si >= 0 and s[si] == s[ei]: #偶数情况 ei>si inclusive ei>=si (4>=3), 奇数情况ei>=si (3>=3)
                     if ei-si+1 > maxLen:
                         maxLen = ei-si+1
                         maxi=si

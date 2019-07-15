@@ -67,6 +67,9 @@ class Solution:
             ch2idx = idx*2+2
         return top
 
+#用priority queue 去选择最小node， 时间复杂度 O(nlog(k))
+#如果用one by one merge 或者 两两merge,时间复杂度为 O(kn)
+
 s=Solution()
 nlist=[]
 n1=ListNode(1)

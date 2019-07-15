@@ -21,16 +21,16 @@ class Solution:
                 C=B.next if B else None
                 itr=itr.next
             elif i%k==k-1:
-                iStart=A
                 for j in range(k-1):        #这里做reverse
                     B.next=A
                     A=B
                     B=C
                     C=C.next if C else None   
+                iCurrStart=iprevStart.next  #由上一次的初始化推出， before reversed start, 
+                iCurrStart.next=B           #然后初始化下次循环需要的尾节点
+                iprevStart.next=A           #上一次的尾节点链接到当前K反转后的首节点， 完成之前和当前的链接
+                iprevStart=iCurrStart       #继续
 
-                iprevStart.next=A   #上一次的尾节点链接到当前K反转后的首节点， 完成之前和当前的链接
-                iprevStart=iStart   #然后初始化下次循环需要的尾节点
-                iprevStart.next=B
                 itr=B
             else:
                 itr=itr.next            
@@ -44,7 +44,7 @@ h.next.next=ListNode(3)
 h.next.next.next=ListNode(4)
 h.next.next.next.next=ListNode(5)
 s=Solution()
-nh=s.reverseKGroup(None, 1)
+nh=s.reverseKGroup(h, 3)
 while nh:
     print(nh.val)
     nh=nh.next

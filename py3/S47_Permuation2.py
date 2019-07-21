@@ -1,3 +1,6 @@
+
+from typing import List
+
 # Given a collection of numbers that might contain duplicates, return all possible unique permutations.
 # Example:
 # Input: [1,1,2]
@@ -66,7 +69,7 @@ class Solution:
                 visited[poped] = False
                 nxtNode=ls
                 for i in range(poped+1, ls):
-                    if not visited[i] and nums[i] != nums[poped]:   #注意，这里下个节点要满足未访问并且不能与pop的重复
+                    if not visited[i] and nums[i] != nums[poped]:   #注意，这里下个节点要满足未访问并且不能与poped的重复
                         nxtNode=i
                         break
         return result

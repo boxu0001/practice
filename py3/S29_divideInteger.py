@@ -29,19 +29,18 @@ class Solution:
         x=abs(dividend)
         y=abs(divisor)
         
-        f=[0, 1]
-        fy=[0, y]
+        f=[(0,0), (y,1)]    #f[i] ==> (count*y, count)
         i=1
-        while fy[i] < x:
-            f+= [f[i] + f[i-1]]
-            fy+= [fy[i] + fy[i-1]]
+        while f[i][0] < x:
+            cy, c = (f[i][0] + f[i-1][0], f[i][1] + f[i-1][1])
+            f+= [(cy,c)]
             i+=1
-        i=len(fy)-1
+        i=len(f)-1
         count=0
         while x >= y:
-            if x >= fy[i]:
-                count+=f[i]
-                x-=fy[i]
+            if x >= f[i][0]:
+                count+=f[i][1]
+                x-=f[i][0]
             i-=1
         
         count = count if isPositive else -count
@@ -50,4 +49,4 @@ class Solution:
 #if f[i+1]>x>=f[i], then f[i-1]>x-f[i]>=0
 
 s=Solution()
-print(s.divide(-2147483648,-1))
+print(s.divide(100,24))

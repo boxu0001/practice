@@ -25,6 +25,15 @@ class Solution:
                 result[-1][1] = i.end if i.end > result[-1][1] else result[-1][1]
         return result
 
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda k:k[0])
+        result=[] if not intervals else [intervals[0]]
+        for k in intervals:
+            if result[-1][0] <= k[0] <= result[-1][1]:
+                result[-1][1] = max(k[1], result[-1][1])
+            else:
+                result+=[k]
+        return result
 
 s=Solution()
 print(s.merge([]))

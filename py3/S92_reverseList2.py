@@ -41,12 +41,12 @@ class Solution:
             cur = cur.next
             prev = prev.next
         
-        #之后 cur , prev将不会在移动了
+        #之后 cur , prev将不会在移动了， cur为新的尾节点 （第m个节点）， 这里用 prev.next 和 cur.next 为变量
         for _ in range(n - m):  
             temp = cur.next             #temp被移动 n-m次， 遍历 m+1， m+2, ..., n (m+n-m)节点
-            cur.next = temp.next        #注意这里用cur.next(指向下一个temp， 最后指向最终改变后头节点), prev.next(最后指向最终改变后尾节点)
-            temp.next = prev.next
-            prev.next = temp
+            cur.next = temp.next        #注意这里用cur.next 指向下一个temp， 最后指向最终链接节点(n+1), 
+            temp.next = prev.next       #改变链接方向
+            prev.next = temp            #prev.next 最后指向最终改变后头节点（第n个节点）
 
         return dummy.next
 

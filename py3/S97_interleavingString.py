@@ -40,10 +40,10 @@ class Solution:
 #2. the problem can be worked out by s3[0:n] := {s1[0:i] ~ s2[0:j] where i,j are fitting the interleaving}
 #then s3[0:n+1] := {s1[0:i+1]~s2[0:j] or s1[0:i]~s2[0:j+1] if fitting}
 #using YangHui triangle to illustrate:
-#               (0,0)
-#         (1,0)       (0,1)
-#     (2,0)     (1,1)       (0,2)
-# (3,0)   (2,1)       (1,2)       (0,3)
+#               (0,0)                           -- s3 length 0
+#         (1,0)       (0,1)                     -- s3 length 1
+#     (2,0)     (1,1)       (0,2)               -- s3 length 2
+# (3,0)   (2,1)       (1,2)       (0,3)         -- s3 length 3
 # ...
 
 

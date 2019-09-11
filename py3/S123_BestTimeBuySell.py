@@ -47,6 +47,29 @@ class Solution:
             
         return result
 
+    def maxProfit2(self, prices: List[int]) -> int:
+        mx1=[0]     #mx1 数组存第i个元素之前的最大值获利值，所以mx1[0]为0（没开始交易），mx1[1]也会为0（只有i==0这个交易起点）
+        newLow=prices[0] if prices else None
+        mx1gain=0
+        for p in prices:
+            if p > newLow:
+                mx1gain = p-newLow if p-newLow > mx1gain else mx1gain
+            else:
+                newLow = p
+            mx1+=[mx1gain]
+        newHigh=prices[-1] if prices else None
+        result=mx1gain
+        mx2gain=0
+        for qi in range(len(prices)-1, -1, -1):
+            if prices[qi] < newHigh:
+                mx2gain = newHigh - prices[qi] if newHigh - prices[qi] > mx2gain else mx2gain
+            else:
+                newHigh = prices[qi]
+            if mx2gain + mx1[qi] > result:      #mx2gain为从qi为起点的最大值， mx1[qi]为qi点之前的最大值（不包括qi点）
+                result = mx2gain + mx1[qi]
+            
+        return result
+
 #总结：
 #分析中，有至少两次交易所产生的最佳结果， 一次交易 vs 两次交易
 #1. 很容易证明最佳交易一定是可拆分成两次交易（不失一般性，定义在数组之前和之后的价格为, price_before=prices[0], price_after=prices[-1]）

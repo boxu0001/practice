@@ -45,7 +45,7 @@ class Solution:
         if endWord not in wordSet:
             return []
         lenw=len(beginWord)
-        dist={beginWord:0}
+        dist={beginWord:0}  #距离哈希表，这里用到最短路径算法，（由于所有路径都是1，所以能访问及最短)
         queue=[beginWord]
         alpha='abcdefghijklmnopqrstuvwxyz'
         while queue:
@@ -55,7 +55,7 @@ class Solution:
                     if nxtWd not in dist and nxtWd in wordSet:
                         dist[nxtWd] = dist[curWd]+1
                         queue+=[nxtWd]
-                        if nxtWd == endWord:
+                        if nxtWd == endWord:        #一旦到达，最短路径值就确定，最短路径有可能多条
                             break
         
         if endWord not in dist:
@@ -67,8 +67,8 @@ class Solution:
             result=[]
             for li in tmp:
                 for k in range(lenw):
-                    for prvWd in [li[0][:k]+c+li[0][k+1:] for c in alpha]:
-                        if prvWd in dist and dist[prvWd] == i:
+                    for prvWd in [li[0][:k]+c+li[0][k+1:] for c in alpha]:  #li[0][:k]+c+li[0][k+1:] 为潜在previous word
+                        if prvWd in dist and dist[prvWd] == i:              #如果潜在字符路径值为i，加入
                             result+=[[prvWd] + [_ for _ in li]]
 
         return result

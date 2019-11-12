@@ -29,20 +29,20 @@ class Solution:
 
         #then use DFS to go deep on the tree
         result=[]
-        stack=[[0,0]] if sl > 0 else []     #each entry on stack is [i, ii] and j=f[i][ii]
+        stack=[[0,0]] if sl > 0 else []     #each entry on stack is [i, ii] and j=f[i][ii]， i是字符串的index, ii是f[i]数组的index
         while stack:
             [i, ii] = stack[-1]
             if ii < len(f[i]):
                 j = f[i][ii]
-                if j == sl:
+                if j == sl:     #访问到最后位置 加入result
                     result+=[[s[xi:f[xi][xii]] for xi, xii in stack]]
                     stack.pop()
                     if stack:
-                        stack[-1][1]+=1
-                else:
-                    stack+=[[j, 0]]
+                        stack[-1][1]+=1     #这里是 ii++
+                else:                       
+                    stack+=[[j, 0]]         #下一个上栈
             else:
-                stack.pop()
+                stack.pop()                 
                 if stack:
                     stack[-1][1]+=1
         return result

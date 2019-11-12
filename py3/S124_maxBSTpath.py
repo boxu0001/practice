@@ -45,13 +45,13 @@ class Solution:
                     stack+=[curNode.left]
                     visited+=[[]]
                 else:
-                    visited[-1]+=[0]
+                    visited[-1]+=[0]    #无左节点添加0
             elif len(curVisited) == 1:
                 if curNode.right:
                     stack+=[curNode.right]
                     visited+=[[]]
                 else:
-                    visited[-1]+=[0]
+                    visited[-1]+=[0]    #无右节点添加0
             else:
                 stack.pop()
                 visited.pop()
@@ -63,4 +63,6 @@ class Solution:
                 if visited:
                     visited[-1] += [max(leftChildMax, rightChildMax) + curNode.val]
         return curMax
-                        
+#总结
+# visited里的元素是list， [左子树最大值，右子树最大值]
+# 64行， 添加访问过的子树最大路径，（从某个节点到子树的根）

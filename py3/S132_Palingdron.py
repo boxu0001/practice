@@ -14,13 +14,13 @@
 class Solution:
     def minCut(self, s: str) -> int:
         sl = len(s)
-        r=[i-1 for i in range(sl+1)]
+        r=[i-1 for i in range(sl+1)]    #初始化分割值， r[i] 为分割 长度 为i+1的子串s[:i+1]
         for i in range(sl):
             ii, jj = i, i
             while ii-1 >= 0 and sl >= jj+1 and s[ii-1] == s[jj]:    #even case
                 ii -= 1
                 jj += 1
-                r[jj]=min(r[jj], r[ii]+1)
+                r[jj]=min(r[jj], r[ii]+1) #r[jj]为原有值， r[ii]+1为从分割两部分：s[:ii]， 和parlingdrom s[ii:jj]
                 
             ii, jj = i+1, i
             while ii-1 >= 0 and sl >= jj+1 and s[ii-1] == s[jj]:    #odd case

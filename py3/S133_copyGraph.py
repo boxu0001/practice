@@ -34,16 +34,17 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        oldNew={}
+        oldNew={}   #map, old <-> new
         return self.cloneSubTree(oldNew, node)
     
     def cloneSubTree(self, oldNew, curNode):
-        if curNode not in oldNew:
+        if curNode not in oldNew:   #检查是否创建
             newNode = Node(curNode.val, [])
             oldNew[curNode] = newNode
             for nb in curNode.neighbors:
                 newNode.neighbors += [self.cloneSubTree(oldNew, nb)]
         return oldNew[curNode]
+
             
             
 

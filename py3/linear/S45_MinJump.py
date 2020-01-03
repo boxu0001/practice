@@ -34,6 +34,8 @@ class Solution:
                 lf+=1
         return 0
 
+#从一个step pool跳下一个step pool
+
 s = Solution()
 print(s.jump([2,3,1,1,4]))
 print(s.jump([0]))

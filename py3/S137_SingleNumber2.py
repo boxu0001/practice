@@ -20,7 +20,7 @@ Output: 99
 '''
 
 
-
+from __future__ import annotations
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         ones, twos = 0, 0
@@ -31,6 +31,8 @@ class Solution:
             
             ones &= ~three
             twos &= ~three
+            print('{0:b} {1:b} {2:b}'.format(ones, twos, three))
         return ones
 
-#TODO
+s=Solution()
+s.singleNumber([0,1,0,1,0,1,99])

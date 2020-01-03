@@ -59,12 +59,13 @@ class Solution:
         while len(q) < ls:
             qlast=q[-1]
             qnxt=(qlast+1)%ls
-            amt+=gas[qlast]-cost[qlast]
-            if amt < 0:
-                amt=0
-                q=[qnxt]
+            amt+=gas[qlast]-cost[qlast] #加上当前值
+            if amt < 0:     #这里需要每一次旅行，有足够的油，
+                amt=0       #如果不够，之前的都不行
+                q=[qnxt]    #从下一个开始 （为什么不从当前开始，因为当前一定是负值）
             else:
                 q+=[qnxt]
         return q[0]
                 
-                
+#根据题目条件，和鸽笼原理，如果sum(gas)-sum(cost)>=0, 一定有解
+#所以while loop之后，一定有解

@@ -25,7 +25,8 @@ class Solution:
     def sortList(self, head: ListNode) -> ListNode:
         newHead, _ = self.innerSort(head)
         return newHead
-    
+
+    #using Quick Sort      
     def innerSort(self, head:ListNode):
         pivot = head
         if head.next == None:
@@ -80,7 +81,6 @@ class Solution:
             head.next = newLargeHead
             return newSmallHead, newLargeTail
 
-
     def sortList2(self, head: ListNode) -> ListNode:
         itr = head
         l = []
@@ -92,10 +92,92 @@ class Solution:
             ei.next = l[i+1] if i < len(l) -1 else None
         return l[0] if l else None
 
+    #using merge sort, using slow, fast iterators
+    def mergeSort(self, head: ListNode) -> ListNode:
+        if head == None or head.next == None:
+            return head
+        elif head.next.next == None:
+            if head.next.val < head.val:
+                b=head.next
+                b.next = head
+                head.next = None
+                return b
+            else:
+                return head
+        else:
+            mid=head
+            tail=head
+            while tail.next != None and tail.next.next != None:
+                tail = tail.next.next
+                mid = mid.next
+            secondHead = mid.next
+            mid.next = None
+            firstHalf = self.mergeSort(head)
+            secondHalf = self.mergeSort(secondHead)
+            dummy = ListNode(0)
+            itr = dummy
+            while firstHalf != None or secondHalf != None:
+                if secondHalf == None or (firstHalf != None and firstHalf.val < secondHalf.val):
+                    itr.next = firstHalf
+                    firstHalf = firstHalf.next
+                else:
+                    itr.next = secondHalf
+                    secondHalf = secondHalf.next
+                itr = itr.next
+            return dummy.next
+
+    #merge sort using stack version
+    def mergeSortStack(self, head: ListNode) -> ListNode:
+        dummy = ListNode(0)
+        dummy.next = head
+        stack=[[dummy, None]] if head else []
+
+        #push split on stack
+        while stack:
+            firstHalf, secondHalf = stack[-1]
+            if firstHalf.next != None and secondHalf == None:
+                # split
+                mid = firstHalf.next
+                tail = firstHalf.next
+                while tail.next != None and tail.next.next != None:
+                    tail = tail.next.next
+                    mid = mid.next
+                if mid.next != None:
+                    secondHalf = ListNode(0)
+                    secondHalf.next = mid.next
+                    mid.next = None
+                    stack[-1][1] = secondHalf
+                    # push new half on stack
+                    stack+=[[firstHalf, None], [secondHalf, None]]
+                else:
+                    # if mid.next == None, firstHalf.next is a single Node list, simplely pop
+                    stack.pop()
+            else:
+                # merge
+                itr = firstHalf
+                A = firstHalf.next
+                B = secondHalf.next
+                while A != None or B != None:
+                    if B == None or (A != None and A.val < B.val):
+                        itr.next = A
+                        A = A.next
+                    else:
+                        itr.next = B
+                        B = B.next
+                    itr = itr.next
+                stack.pop()
+
+        return dummy.next
+
+
+
+
+
 head = ListNode(4)
 head.next = ListNode(2)
-head.next.next = ListNode(3)
-head.next.next.next = ListNode(1)
+# head.next.next = ListNode(3)
+# head.next.next.next = ListNode(1)
+# head.next.next.next.next = ListNode(5)
 
 s=Solution()
-s.sortList2(head)
+t=s.mergeSortStack(head)

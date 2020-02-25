@@ -39,8 +39,7 @@ class Solution:
 
     def reverseWords2(self, s: str) -> str:
         a=s.split(" ")
-        b=[x for x in a if x != ""]
-        return " ".join(b[::-1])
+        return " ".join(x for x in a[::-1] if x != "")
 
 s = Solution()
 print(s.reverseWords2("  hello world!  "))

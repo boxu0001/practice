@@ -50,4 +50,51 @@ Notes:
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-                
+        ia = headA
+        ib = headB
+        ca = 0
+        cb = 0
+        while ia and ia.next:
+            ca += 1
+            ia = ia.next
+        if ia: ca+=1
+        while ib and ib.next:
+            cb += 1
+            ib = ib.next
+        if ib: cb+=1
+        
+        if ia and ib and ia == ib:
+            delta = ca - cb
+            if delta > 0:
+                for _ in range(delta):
+                    headA = headA.next
+            else:
+                for _ in range(-delta):
+                    headB = headB.next
+            # headA and headB now aligned
+            while True:
+                if headA != headB:
+                    headA = headA.next
+                    headB = headB.next    
+                else:
+                    return headA
+
+        else:
+            return None
+
+
+    def getIntersectionNodeEnhanced(self, headA: ListNode, headB: ListNode) -> ListNode:
+        itrA = headA
+        itrB = headB
+        if itrA and itrB:
+            while itrA != itrB:
+                if itrA.next == None and itrB.next == None:
+                    return None
+                itrA = itrA.next if itrA.next else headB
+                itrB = itrB.next if itrB.next else headA
+            return itrA
+
+        else:
+            return None
+
+# 分析：长链n, 短链m， 让长链指针先走 n-m 步

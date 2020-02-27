@@ -60,7 +60,7 @@ class Solution:
     def read(self, buf, n):
         # Write your code here
         cnt = 0
-        i = 0
+        bi = 0
         while cnt < n:
             if self.tail == self.head:
                 i = Reader.read4(self.lastBuf)
@@ -68,10 +68,9 @@ class Solution:
                 self.tail = i
                 if i == 0:
                     break
-            while self.head < self.tail and cnt < n:
-                buf[i] = self.buffer[self.head]
-                i+=1
-                self.head+=1
-                cnt+=1
+            
+            buf[bi] = self.lastBuf[self.head]
+            bi+=1
+            self.head+=1
+            cnt+=1
         return cnt
-

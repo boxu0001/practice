@@ -39,11 +39,11 @@ class Solution:
                 endP = prices[i]
             else:
                 if endP != None:
-                    trx+=[[startP, endP]]
+                    trx+=[startP, endP]
                     endP = None
                 startP = prices[i]
         if endP != None:
-            trx+=[[startP, endP]]
+            trx+=[startP, endP]
 
         # 
         #   f[d, start] = max of following:
@@ -52,21 +52,27 @@ class Solution:
         #           f[d-1, start+2]   ---> from trx[start+2], needs "d-1" transactions
         #           f[d-1, start+3]   ---> from trx[start+3], needs "d-1" transactions
         #              ...
-        #           f[d-1, n]   ---> from trx[n], needs "d-1" transactions, n is beyond the boundary, set as 0 always
+        #           f[d-1, n-1]   ---> from trx[n], needs "d-1" transactions, n is beyond the boundary, set as 0 always
         #
+
         n=len(trx)
-        mk = min(k, n)
-        f=[[0]*(n+1) for _ in range(mk+1)]
-        for d in range(1, mk+1):
-            for start in range(n-1, -1,-1):
-                f[d][start] = f[d][start+1]
-                startPrice, _ = trx[start]
-                for i in range(n, start, -1):
-                    _, endPriceI = trx[i-1]
-                    f[d][start] = max(f[d][start], endPriceI - startPrice + f[d-1][i])
+        if k >= n//2:
+            return sum(trx[i+1] - trx[i] for i in range(0, n-1, 2))
         
-        return f[mk][0]
-                    
+        f=[[0]*(n+1) for _ in range(k+1)]
+
+        # 这里tmp[d][i]是存 max(f[d][j]+trx[j]) i <= j <= n-1, 所以 f[d][i]=tmp[d-1][i+1] - trx[i], 用来辅助和优化
+        # 初始化 f[0][*] = 0, f[*][n] = 0
+        # 初始化 tmp[0][i from 0 to n-1] = max(trx[i], trx[i+1], ... trx[n-1]), tmp[*][n] = 0
+        tmp=[[0]*(n+1) for _ in range(k+1)] 
+        for i in range(n-1, -1, -1):
+            tmp[0][i] = max(tmp[0][i+1], trx[i])
+
+        for d in range(1, k+1):
+            for i in range(n-2, -1, -1): #from n-2 to 0
+                f[d][i] = max(f[d][i+1], tmp[d-1][i+1] - trx[i])
+                tmp[d][i] = max(tmp[d][i+1], f[d][i]+trx[i])
+        return f[k][0]
 
 s=Solution()
 s.maxProfit(2,[3,3,5,0,0,3,1,4])

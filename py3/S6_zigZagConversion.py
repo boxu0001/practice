@@ -23,7 +23,7 @@ class Solution:
             for t in range(i, len(s), nr*2-2):
                 rtype+=[s[t]]
                 if 0<i<nr-1 and t-i+2*nr-2-i < len(s):
-                    rtype+=[s[t-2*i+2*nr-2]]         
+                    rtype+=[s[t-2*i+2*nr-2]]            # t - 2nr-1 - (2i-1)    -> 2nr-1 为一个循环，减去 上部多出的 2i-1
         return "".join(rtype)
 s=Solution()
 print(s.convert("PAYPALISHIRING", 3))

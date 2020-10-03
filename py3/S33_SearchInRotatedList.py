@@ -29,15 +29,19 @@ class Solution:
         biStart = 0
         if nums[0] > nums[ls-1]:
             biEnd = ls - 1
-            biMid = (biStart+biEnd)//2
+            biMid = (biStart+biEnd)//2  # 最终形成 biStart == biMid < biEnd, Max = Number[biStart], Min = Number[biEnd]
             while biMid > biStart:
                 if nums[biMid] > nums[biStart]:
                     biStart = biMid
                 else:
                     biEnd = biMid
                 biMid = (biStart+biEnd)//2
-            start = 0 if target >= nums[0] else biEnd
-            end = ls-1 if target <= nums[ls-1] else biStart
+            if target >= nums[0]:
+                start = 0
+                end = biStart
+            else:
+                start = biEnd
+                end = ls-1
         while(start <= end):
             mid = (start+end)//2
             if target == nums[mid]:
@@ -51,4 +55,5 @@ class Solution:
 s=Solution()
 print(s.search([4,5,6,7,0,1,2], 0))
 print(s.search([4,5,6,7,0,1,2], 3))
+print(s.search([6,7,0,1,2,3,4], 0))
 print(s.search([5], 2))

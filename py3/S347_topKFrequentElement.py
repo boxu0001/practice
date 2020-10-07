@@ -21,3 +21,22 @@ Note:
     It's guaranteed that the answer is unique, in other words the set of the top k frequent elements is unique.
     You can return the answer in any order.
 '''
+import heapq as pq
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        queue=[]
+        count={}
+        for n in nums:
+            if n not in count:
+                count[n] = 1
+            else:
+                count[n] += 1
+        for n in count:
+            if len(queue) < k :
+                pq.heappush(queue, (count[n], n))
+            elif len(queue) == k and count[n] > queue[0][0]:
+                pq.heapreplace(queue, (count[n], n))
+            else:
+                pass
+
+        return [n for _,n in queue]

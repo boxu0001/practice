@@ -70,6 +70,7 @@ from __future__ import annotations
 class Solution:
 
     def workout(self, numcust: int , time: list[int], dirs: list[int]) -> list[int] :
+        #用两个队列处理，进队列和出队列
         q1=[[i, time[i]] for i in range(numcust) if dirs[i] == 1]
         q0=[[i, time[i]] for i in range(numcust) if dirs[i] == 0]
 
@@ -77,6 +78,7 @@ class Solution:
         timestate={}
         result=[None for _ in range(numcust)]
         while q0 or q1:
+            #对时间处理，早到的有可能还在等待
             if q0 and q0[0][1] < ti:
                 q0[0][1] = ti
             if q1 and q1[0][1] < ti:

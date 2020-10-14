@@ -127,6 +127,29 @@ class Solution:
 
         return int(result)
 
+
+    def getSongPairCount2(self, songs: list[int]) -> int:
+        result=0
+        N=len(songs)
+        mods={}
+        for s in songs:
+            x = s%60
+            y = (60-x)%60
+           
+            if y in mods:
+                result += mods[y]
+            
+            if x not in mods:
+                mods[x]=1
+            else:
+                mods[x]+=1
+
+        return result
+
+        
+
+
+
 s=Solution()
-# s.getSongPairCount([30, 20, 150, 100, 40])
-s.getSongPairCount([60,60,60])
+s.getSongPairCount2([30, 20, 150, 100, 40])
+# s.getSongPairCount2([60,60,60])

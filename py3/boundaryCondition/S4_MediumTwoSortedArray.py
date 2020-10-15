@@ -82,10 +82,61 @@ class Solution:
             else:
                 endIndex = i-1          
 
+
+    def findkthElementOfTwoSortedArray(self, K, nums1, nums2):
+        N1 = len(nums1)
+        N2 = len(nums2)
+
+        if not nums2 or (K < N1 and nums1 and nums2[0] >= nums1[K]):
+            return nums1[K]
+        
+        if not nums1 or (K < N2 and nums2 and nums1[0] >= nums2[K]):
+            return nums2[K]
+        
+        # K < N1 + N2
+        k1 = min(K, N1-1)
+        k2 = K-k1
+
+        while True:
+            if 0 <= k1:
+                if k2 < 0 or k2 == N2 or (k2 > 0 and nums2[k2-1] <= nums1[k1] <= nums2[k2]) or (k2==0 and nums1[k1] <= nums2[k2]):
+                    return nums1[k1] 
+                elif nums1[k1] > nums2[k2]: #N2 > k2 >=0 
+                    if k1 == 0:
+                        return nums2[k2]
+                    else:
+                        delta = min(N2-k2, k1 - k1//2)  
+                        k1 -= delta 
+                        k2 += delta #k2 can be N2, which means the entire nums2 is smaller than k1
+                    
+                else: # nums1[k1] < nums2[k2-1] <= nums[k2], k2 must > 0
+                    N2, N1, k2, k1, nums2, nums1 = N1, N2, k1, k2, nums1, nums2
+
+            else: # k1 < 0
+                return nums2[k2]
+
+    def findMedianSortedArrays3(self, nums1, nums2):
+        N1 = len(nums1)
+        N2 = len(nums2)
+        m1 = (N1+N2-1)//2
+        m2 = (N1+N2)//2
+        med1 = self.findkthElementOfTwoSortedArray(m1, nums1, nums2)
+        if m2 == m1:
+            return med1
+        med2 = self.findkthElementOfTwoSortedArray(m2, nums1, nums2)
+        return (med1+med2)/2
+
+
+
+
 s=Solution()
 # print(s.findMedianSortedArrays([1,2],[-1,3]))
 # print(s.findMedianSortedArrays([1,5],[2,2]))
 
 # print(s.findMedianSortedArrays2([1],[-1,3]))
-# print(s.findMedianSortedArrays2([10002, 10005],[10000]))
-print(s.findMedianSortedArrays2([1],[2, 3, 4]))
+print(s.findMedianSortedArrays3([10002, 10005],[10000]))
+print(s.findMedianSortedArrays3([1],[2, 3, 4]))
+
+# s.findkthElementOfTwoSortedArray(1, [10002, 10005],[10000])
+
+

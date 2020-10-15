@@ -37,6 +37,7 @@ class Solution:
                 itr = itr.next
             else:
                 itr.next=head
+                #now itr itself the old tail
                 break
         c=(len-k%len)%len
         for i in range(c):

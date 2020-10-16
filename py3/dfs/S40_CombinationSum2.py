@@ -81,7 +81,41 @@ class Solution:
                 #find next
                 ni+=1                           #简单ni++
         return result
-                
+    
+
+    def combinationSum3(self, candidates, target):
+        candidates = sorted(candidates)
+        return self.backtrack(candidates, target)
+
+
+    
+    def backtrack(self, candidates, target):
+        if not candidates:
+            return []
+        else:
+            tempresult=[]
+            first = candidates[0]
+            rr = self.backtrack(candidates[1:], target-first)
+            for r in rr:
+                r.insert(0, first)
+                tempresult+=[r]
+            
+            i=0
+            while candidates[i] == first:
+                i+=1
+            
+            rnxt = self.backtrack(candidates[i:], target)
+            for r in rnxt:
+                tempresult+=[r]
+            return tempresult
+            
+
+
+
+
+
+
+
 s=Solution()        
 print(s.combinationSum2([3,1,3,5,1,1], 8))
 print(s.dfsTree([3,1,3,5,1,1], 8))

@@ -118,4 +118,4 @@ class Solution:
 
 s=Solution()
 s.workout(5, [0,1,1,3,3], [0, 1, 0, 0, 1])
-# s.workout(4, [0, 0, 1,5], [0, 1, 1, 0])
+# s.workout(4, [0, 0, 1,5], [0, 1, 1, 0]) 

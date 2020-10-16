@@ -87,26 +87,24 @@ class Solution:
         candidates = sorted(candidates)
         return self.backtrack(candidates, target)
 
-
-    
+    #没有枝减，速度慢
     def backtrack(self, candidates, target):
-        if not candidates:
+        if target == 0:
+            return [[]]
+        elif len(candidates) == 0 and target != 0:
             return []
         else:
             tempresult=[]
-            first = candidates[0]
-            rr = self.backtrack(candidates[1:], target-first)
-            for r in rr:
-                r.insert(0, first)
-                tempresult+=[r]
-            
-            i=0
-            while candidates[i] == first:
-                i+=1
-            
-            rnxt = self.backtrack(candidates[i:], target)
-            for r in rnxt:
-                tempresult+=[r]
+            first = None
+            for i, x in enumerate(candidates):
+                if first == None or x != first:
+                    first = x
+                    rr = self.backtrack(candidates[i+1:], target-first)
+                    for r in rr:
+                        r.insert(0, first)
+                        tempresult+=[r]
+                    
+
             return tempresult
             
 
@@ -117,7 +115,7 @@ class Solution:
 
 
 s=Solution()        
-print(s.combinationSum2([3,1,3,5,1,1], 8))
-print(s.dfsTree([3,1,3,5,1,1], 8))
-print(s.combinationSum2([1,2,3,4,5,6,7,8,9], 15))
-print(s.dfsTree([1,2,3,4,5,6,7,8,9], 15))
+# print(s.combinationSum3([1,3,3], 6))
+# print(s.combinationSum3([3,1,3,5,1,1], 8))
+print(s.combinationSum3([1,2,3,4,5,6,7,8,9], 15))
+# print(s.dfsTree([1,2,3,4,5,6,7,8,9], 15))

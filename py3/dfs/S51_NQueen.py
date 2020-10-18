@@ -51,30 +51,6 @@ class Solution:
                     nj=j+1
         return result
 
-    def dfsTree(self, n):
-        stack=[-1]  #add root, -1
-        nc = 0  #next column index
-        result=[]
-        while stack:
-            #if rollback, try find one
-            if nc >= n-1:
-                if nc == n-1:
-                    #find one, add to result
-                    stack+=[nc]
-                    result+=[['.'*i+'Q'+'.'*(n-1-i) for i in stack[1:]]]
-                    stack.pop()
-                popI = stack.pop()
-                row, col=len(stack)-2, popI+1
-                #test valid or not
-
-
-
-            #or add
-        return None
-
-
-
-
 
 s=Solution()
 print(s.solveNQueens(4))

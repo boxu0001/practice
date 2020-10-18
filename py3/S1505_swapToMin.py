@@ -108,11 +108,20 @@ class Solution:
             if n != None: result += [str(n)]
         return "".join(result)
 
-    #以上解法使用 binary index tree or Fenwick Tree, Time O(nlog(n)), Space O(n)
-    # tree(i) = function(parent(i), i), here function is sum
+    #以上解法使用 binary index tree or Fenwick Tree, 用来记录 在 （i， j] 之间替换个数总和
+    # Time O(nlog(n)), Space O(n), 
+    # tree(i) = function(parent(i), i), here function is sum from (parent(i), i]
     # parent(i) = i - (i & (-i)) or i-(i&(~(i-1)))
     # for next j,  p(j) <= i < j,  j = i+(i&(-i))
-
+    #         ____ 0 ___________
+    #       /   /   \           \
+    #      1   10   100         1000     ..       1...00000
+    #        /    /   |      /   |   \
+    #       11  101  110  1001  1010  1100
+    #               /           /     /   \
+    #             111         1011  1101  1110
+    #                                      /
+    #                                    1111
 
     #以下解法使用简单的递归， 效率也很高
     def minInteger2(self, num: str, k: int) -> str:
@@ -128,7 +137,7 @@ class Solution:
             if idx>=0 and idx<=k:
                 return num[idx]+self.minInteger(num[:idx]+num[idx+1:],k-idx)    #O(n)
 
-        # Time O(n**2), Space O(n)
+        # Time O(n**2), Space O(n**2)
 
 s=Solution()
 # s.minInteger("4321", 4)

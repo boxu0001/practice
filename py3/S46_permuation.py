@@ -49,6 +49,25 @@ class Solution:
                     result+=[[nums[i]] + j]
         return  result
 
+    def permute3(self, nums: List[int]) -> List[List[int]]:
+        result=[]
+        stack=[[0, nums]]
+        lens = len(nums)
+        while stack:
+            curIdx, curNums = stack[-1]
+            curLens = len(curNums)
+            if curIdx < curLens:
+                stack+=[[0, curNums[:curIdx] + curNums[curIdx+1:]]]
+            else:
+                stack.pop()
+                if len(stack) == lens:
+                    result += [[curNums[i] for i, curNums in stack]]
+                
+                if stack:
+                    stack[-1][0]+=1
+            
+        return result
+
 s=Solution()
-r=s.permute2([1,2,3])
+r=s.permute3([1,2,3])
 print(r)

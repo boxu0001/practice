@@ -87,19 +87,37 @@ class Solution:
         elif ls==1:
             return [nums]
         else:
-            lasti=None
             for i in range(ls):
-                if lasti == None or nums[lasti] != nums[i]:
+                if i == 0 or nums[i-1] != nums[i]:
                     rchildren=self.permuteUniqueRec(nums[:i] + nums[i+1:])
                     for ri in rchildren:
                         r+=[[nums[i]] + ri]
-                lasti = i
             return r
         
 
+    def permuteUnique3(self, nums: List[int]) -> List[List[int]]:
+        nums=sorted(nums)
+        numDistinctIdx=[i for i, x in enumerate(nums) if i==0 or x != nums[i-1]]
+        lens=len(nums)
+        result=[]
+        stack=[[0, numDistinctIdx, nums]]
+        while stack:
+            curIdx, curDistIdxList, curNums  = stack[-1]
+            if curIdx < len(curDistIdxList):
+                nxtNums = curNums[:curDistIdxList[curIdx]] + curNums[curDistIdxList[curIdx]+1:]
+                nxtDistIdxList = [i for i, x in enumerate(nxtNums) if i==0 or x != nxtNums[i-1]]
+                stack+=[[0, nxtDistIdxList, nxtNums]]
+            else:
+                stack.pop()
+                if len(stack) == lens:
+                    result+=[[curNums[curDistList[i]] for i, curDistList, curNums in stack ]]
+                
+                if stack:
+                    stack[-1][0]+=1
+        return result
 
 
 
 
 s = Solution()
-print(s.permuteUniqueRecursion([1,2,2,3,3]))
+print(s.permuteUnique3([1,1,2]))

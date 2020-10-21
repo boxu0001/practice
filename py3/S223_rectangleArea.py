@@ -28,4 +28,3 @@ class Solution:
         total -= (xlist[2] -xlist[1]) * (ylist[2] -ylist[1])
         
         return total
-            

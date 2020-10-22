@@ -31,22 +31,15 @@ Output: ["0"]
 
 class Solution:
     def letterCasePermutation(self, S: str) -> List[str]:
-        
         S=S.lower()
         result=[""]
         
         for c in S:
-            choices=[]
-            if '0' <= c <='9':
-                choices=[c]
+            if c.isdigit():
+                tmp=[r+c for r in result]
             else:
-                choices=[c, c.upper()]
-            
-            tmp=[]
-            for base in result:
-                for x in choices:
-                    tmp+=[base+x]
-            
+                tmp=[r+x for x in [c, c.upper()] for r in result]
+
             result = tmp
         
         return result

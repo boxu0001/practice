@@ -47,11 +47,6 @@ class Solution:
     @param root: the root of binary tree
     @return: the root of the maximum average of subtree
     """
-class Solution:
-    """
-    @param root: the root of binary tree
-    @return: the root of the maximum average of subtree
-    """
     def findSubtree2(self, root):
         # write your code here
         _, _, _, nd  = self.findSubtreeRecursive(root)

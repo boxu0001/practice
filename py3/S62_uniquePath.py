@@ -26,9 +26,8 @@
 
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        #f(m,n)=f(m-1, n)+f(m-1,n-1)
         f=[[0]*(m+1) for _ in range(n+1)]
-        f[1][1]=1
+        f[1][1]=1   #[1,1] in fact is the starting point, all the f[0][*] == f[*][0] = 0, are extra auxilary boundary, for easy coding
         for j in range(1, n+1):
             for i in range(1, m+1):
                 if j > 1 or i > 1:

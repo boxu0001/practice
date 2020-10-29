@@ -40,5 +40,27 @@ class Solution:
 
         return count
 
+    def fiveStarReviews2(self, productRatings, ratingsThreshold: float) -> int:
+        N=len(productRatings)
+        queue=[]
+        curRatingSum = 0
+        targetSum = N * ratingsThreshold
+        for [rv, tt] in productRatings:     #loop all [review, total]
+            delta = (rv+1)/(tt+1) - rv/tt   # calculate (rv+1)/(tt+1) - rv/tt
+            pq.heappush(queue, [-delta, rv, tt])      #build a max-based heap, so using negtive sign here
+            curRatingSum += rv/tt
+        
+        count=0
+        while curRatingSum < targetSum:
+            count+=1
+            negDelta, rv, tt = pq.heappop(queue)  #we get negtive delta value, 
+            curRatingSum += -negDelta             #so we put '-' sign to make it positive
+            rv+=1
+            tt+=1
+            newDelta=(rv+1)/(tt+1) - rv/tt
+            pq.heappush(queue, [-newDelta, rv, tt])     #push with new calculated delta
+        
+        return count
+
 s=Solution()
-s.fiveStarReviews([[2,4],[1,2]], 0.8)
+s.fiveStarReviews2([[3,4],[1,2],[4,5]], 0.8)

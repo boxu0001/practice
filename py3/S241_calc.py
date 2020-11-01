@@ -27,7 +27,8 @@ from __future__ import annotations
 import itertools
 
 class Solution:
-    def diffWaysToCompute(self, input):    
+
+    def diffWaysToCompute2(self, input):    
         ops = {'+': lambda x, y: x + y,
             '-': lambda x, y: x - y,
             '*': lambda x, y: x * y}
@@ -36,9 +37,9 @@ class Solution:
             for i in range(len(s)):
                 if s[i] in "+-*":          
                     ans += [ops[s[i]](l, r) for l, r in itertools.product(ways(s[0:i]), ways(s[i+1:]))]
-            if not ans: ans.append(int(s) if len(s) > 0 else 0 )
+            if not ans: ans.append(int(s))
             return ans
         return ways(input)
 
 s=Solution()
-s.diffWaysToCompute("-2+3")
+s.diffWaysToCompute("2*3-4*5")

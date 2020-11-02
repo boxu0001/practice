@@ -45,12 +45,14 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
 class Solution:
-    def kthSmallest(self, root: TreeNode, k: int) -> int:
+    #using stack
+    def kthSmallest2(self, root: TreeNode, k: int) -> int:
         stack=[root]
         kid=0
         nxtNode = root.left
-        while stack or nxtNode != None:
+        while stack or nxtNode != None: #if stack is not empty or nxtNode is not None
             if nxtNode != None:
                 stack+=[nxtNode]
                 nxtNode=nxtNode.left
@@ -63,4 +65,26 @@ class Solution:
                 nxtNode = node.right
                 
         return None
+    
+    #recursion
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        def inorder(node, cnt):
+            #cnt on left
+            if node == None:
+                return cnt, None
+            
+            cnt, theNode = inorder(node.left, cnt)
+            if theNode != None:
+                return cnt, theNode
+            cnt-=1
+            if cnt == 0:
+                return 0, node
+            cnt, theNode = inorder(node.right, cnt)
+            if theNode != None:
+                return cnt, theNode
+            
+            return cnt, None
+            
+        _, node = inorder(root, k)
+        return node.val if node else None
         

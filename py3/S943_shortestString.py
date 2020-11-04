@@ -37,7 +37,7 @@ class Solution:
                         overlap[i][j]= d 
                         break
         
-        f=[[None]*(lens) for _ in range(1<<lens)]    #eg. f[31][3]=[24,2],  31 binary = '11111', 3 is head, containing 1,2,3,4,5 words, min length is 24, 
+        f=[[None]*(lens) for _ in range(1<<lens)]    #eg. f[31][3]=24,  31 binary = '11111', 3 is head, containing 1,2,3,4,5 words, min length is 24, 
         p=[[None]*(lens) for _ in range(1<<lens)]    # parent p[32][3] = 2, 3 connect to 2
        
         for i in range(lens):

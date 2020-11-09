@@ -31,3 +31,12 @@
 **/.gradle
 **/.idea
 **/out
+
+**/.cproject
+**/.project
+**/.settings/
+
+**/Debug
+**/Release
+
+c/

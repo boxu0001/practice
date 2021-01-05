@@ -21,6 +21,12 @@ class Solution:
         
         return tmpSum
 
-s=Solution()
-s.m1()
+def fun():
+    return False
+
+
+# s=Solution()
+# s.m1()
+
+print(fun())
 
